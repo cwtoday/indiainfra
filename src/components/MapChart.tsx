@@ -198,11 +198,11 @@ export default function MapChart({ data }: MapChartProps) {
         height: '340px',
         borderRadius: '4px',
         background: '#1a2235',
-        overflow: 'hidden',
         '& .leaflet-container': {
           width: '100% !important',
           height: '100% !important',
-          background: '#1a2235 !important'
+          background: '#1a2235 !important',
+          zIndex: 1
         }
       }}
     >
@@ -211,6 +211,8 @@ export default function MapChart({ data }: MapChartProps) {
         style={{ 
           width: '100%', 
           height: '100%',
+          overflow: 'hidden',
+          borderRadius: '4px'
         }} 
       />
       {isLoading && (
@@ -220,7 +222,7 @@ export default function MapChart({ data }: MapChartProps) {
             top: '50%', 
             left: '50%', 
             transform: 'translate(-50%, -50%)',
-            zIndex: 10
+            zIndex: 2
           }}
         >
           <CircularProgress />
