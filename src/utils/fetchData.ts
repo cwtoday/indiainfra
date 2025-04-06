@@ -191,30 +191,34 @@ function generateFallbackEtimData(): ProjectData[] {
     'JSW Energy', 'Tata Power', 'NTPC Renewable', 'Hero Future'
   ];
   
-  // Generate projects with correct Greenko count
   const fallbackData: ProjectData[] = [];
   
   // Add exactly 13 Greenko projects
   for (let i = 0; i < 13; i++) {
     fallbackData.push({
-      Project: `Greenko Project ${i+1}`,
+      developer: 'Greenko',
       Developer: 'Greenko',
+      ProjectName: `Greenko Project ${i+1}`,
       State: states[Math.floor(Math.random() * states.length)],
-      source: sources[Math.floor(Math.random() * sources.length)],
+      Sector: sources[Math.floor(Math.random() * sources.length)],
       'Investment (USD Million)': (100 + Math.random() * 900).toFixed(2),
-      Status: statuses[Math.floor(Math.random() * statuses.length)],
+      Capacity: Math.floor(100 + Math.random() * 900),
+      Status: statuses[Math.floor(Math.random() * statuses.length)]
     });
   }
   
   // Add remaining projects to reach 1558
   for (let i = 0; i < 1545; i++) {
+    const developer = developers[Math.floor(Math.random() * developers.length)];
     fallbackData.push({
-      Project: `ETIM Project ${i+1}`,
-      Developer: developers[Math.floor(Math.random() * developers.length)],
+      developer: developer,
+      Developer: developer,
+      ProjectName: `ETIM Project ${i+1}`,
       State: states[Math.floor(Math.random() * states.length)],
-      source: sources[Math.floor(Math.random() * sources.length)],
+      Sector: sources[Math.floor(Math.random() * sources.length)],
       'Investment (USD Million)': (100 + Math.random() * 900).toFixed(2),
-      Status: statuses[Math.floor(Math.random() * statuses.length)],
+      Capacity: Math.floor(100 + Math.random() * 900),
+      Status: statuses[Math.floor(Math.random() * statuses.length)]
     });
   }
   
@@ -227,12 +231,15 @@ function generateFallbackIigData(): ProjectData[] {
   const statuses = ['Announced', 'DPR Approved', 'Under Construction', 'Completed'];
   
   return Array.from({ length: 6726 }, (_, i) => ({
+    ProjectName: `IIG Project ${i+1}`,
     'Project Title': `IIG Project ${i+1}`,
-    Developer: '', // No developer in IIG data
+    developer: '',  // Required field from ProjectData
+    Developer: '',  // No developer in IIG data
     State: states[Math.floor(Math.random() * states.length)],
     Sector: sectors[Math.floor(Math.random() * sectors.length)],
     'Total Project Cost (USD mn)': (200 + Math.random() * 1800).toFixed(2),
     'Project Status': statuses[Math.floor(Math.random() * statuses.length)],
+    Capacity: 0  // Required field from ProjectData, set to 0 for IIG projects
   }));
 }
 
@@ -244,12 +251,14 @@ function generateDummyEtimData(): ProjectData[] {
   const developers = ['Reliance Industries', 'Adani Green', 'ACME Cleantech', 'ReNew Power', 'Greenko'];
   
   return Array.from({ length: 1558 }, (_, i) => ({
-    Project: `ETIM Project ${i+1}`,
+    ProjectName: `ETIM Project ${i+1}`,
+    developer: developers[Math.floor(Math.random() * developers.length)],
     Developer: developers[Math.floor(Math.random() * developers.length)],
     State: states[Math.floor(Math.random() * states.length)],
-    source: sources[Math.floor(Math.random() * sources.length)],
+    Sector: sources[Math.floor(Math.random() * sources.length)],
     'Investment (USD Million)': (100 + Math.random() * 900).toFixed(2),
     Status: statuses[Math.floor(Math.random() * statuses.length)],
+    Capacity: Math.floor(100 + Math.random() * 900)
   }));
 }
 
@@ -261,11 +270,23 @@ function generateDummyIigData(): ProjectData[] {
   const developers = ['L&T', 'GMR Infrastructure', 'Reliance Infrastructure', 'Tata Projects', 'NHAI'];
   
   return Array.from({ length: 6726 }, (_, i) => ({
+    ProjectName: `IIG Project ${i+1}`,  // Required field
     'Project Title': `IIG Project ${i+1}`,
+    developer: developers[Math.floor(Math.random() * developers.length)],  // Required field
     Developer: developers[Math.floor(Math.random() * developers.length)],
     State: states[Math.floor(Math.random() * states.length)],
     Sector: sectors[Math.floor(Math.random() * sectors.length)],
     'Total Project Cost (USD mn)': (200 + Math.random() * 1800).toFixed(2),
     'Project Status': statuses[Math.floor(Math.random() * statuses.length)],
+    Capacity: 0  // Required field, set to 0 for IIG projects
   }));
+}
+
+export async function getFallbackData(): Promise<ProjectData[]> {
+  const fallbackData: ProjectData[] = [];
+
+  // Remove the hardcoded Greenko projects section
+  // ... existing code ...
+
+  return fallbackData;
 }

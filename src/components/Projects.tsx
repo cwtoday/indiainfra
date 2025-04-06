@@ -72,10 +72,10 @@ import {
       
       const matchesHighPriority = !showHighPriority || isHighPriorityDeveloper(developer);
       
-      const matchesSearch = !searchQuery || 
-        (project.Project || project['Project Title'] || '')
+      const matchesSearch = !searchQuery ||
+        String(project.Project || project['Project Title'] || '')
           .toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (developer.toLowerCase().includes(searchQuery.toLowerCase()));
+        String(developer).toLowerCase().includes(searchQuery.toLowerCase());
       
       return matchesState && matchesStatus && matchesSearch && matchesHighPriority;
     });

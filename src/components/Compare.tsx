@@ -68,6 +68,9 @@ export default function Compare() {
         },
         grid: {
           display: false
+        },
+        border: {
+          display: false
         }
       },
       y: {
@@ -79,6 +82,9 @@ export default function Compare() {
           }
         },
         grid: {
+          display: false
+        },
+        border: {
           display: false
         }
       }

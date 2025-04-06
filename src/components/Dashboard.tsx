@@ -106,27 +106,33 @@ export default function Dashboard() {
     },
     scales: {
       x: {
+        grid: {
+          display: false
+        },
+        border: {
+          display: false
+        },
         ticks: {
           color: 'white',
           font: {
             size: 14,
             weight: 'bold' as const
           }
-        },
-        grid: {
-          display: false
         }
       },
       y: {
+        grid: {
+          display: false
+        },
+        border: {
+          display: false
+        },
         ticks: {
           color: 'white',
           font: {
             size: 14,
             weight: 'bold' as const
           }
-        },
-        grid: {
-          display: false
         }
       }
     },
@@ -224,7 +230,7 @@ export default function Dashboard() {
           
           <Grid item xs={12} md={3}>
             <Paper elevation={2} sx={{ p: 3, textAlign: 'center', borderRadius: 2 }}>
-              <Typography variant="h6" color="text.secondary" gutterBottom>Large Projects (>$500M)</Typography>
+              <Typography variant="h6" color="text.secondary" gutterBottom>Large Projects ({'>'}$500M)</Typography>
               <Typography variant="h3" fontWeight="bold">{largeProjects}</Typography>
             </Paper>
           </Grid>
@@ -317,8 +323,10 @@ export default function Dashboard() {
                     scales: {
                       x: {
                         grid: {
-                          display: false,
-                          drawBorder: false
+                          display: false
+                        },
+                        border: {
+                          display: false
                         },
                         ticks: {
                           color: 'white',
@@ -340,8 +348,10 @@ export default function Dashboard() {
                       },
                       y: {
                         grid: {
-                          display: false,
-                          drawBorder: false
+                          display: false
+                        },
+                        border: {
+                          display: false
                         },
                         ticks: {
                           color: 'white',

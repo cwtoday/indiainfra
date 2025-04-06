@@ -290,11 +290,11 @@ function analyzeDevelopers(projects: ProjectData[]) {
     acc[developer].projectCount += 1;
     if (project.State) acc[developer].states.add(project.State);
     
-    const value = Number(project['Investment (USD Million)']) || 
-                 Number(project['Total Project Cost (USD mn)']) || 0;
+    const value = Number(project['Investment (USD Million)'] || 
+                    project['Total Project Cost (USD mn)'] || 0);
     acc[developer].totalValue += value;
     
-    const sector = project.source || project.Sector || 'Unknown';
+    const sector = project.Sector || 'Unknown';
     if (sector) acc[developer].sectors.add(sector);
     
     acc[developer].projects.push(project);

@@ -1,27 +1,37 @@
-interface ProjectData {
-  Project?: string;
-  'Project Title'?: string;
-  Developer: string;
-  State: string;
-  source?: string;
-  Sector?: string;
-  'Investment (USD Million)'?: number;
-  'Total Project Cost (USD mn)'?: number;
-  Status: string;
-  'Project Status'?: string;
-}
+import { ProjectData } from '@/types';
 
-export function getStateStatistics(data: ProjectData[], valueField: string) {
-  return data.reduce((acc, project) => {
+// Helper type for the accumulator
+type StateAggregation = {
+  count: number;
+  totalValue: number;
+  projects: ProjectData[];
+};
+
+// Helper type for the return value
+type StateAggregationMap = Record<string, StateAggregation>;
+
+export function aggregateProjectsByState(
+  projects: ProjectData[],
+  valueField: keyof ProjectData // This ensures valueField is a valid key of ProjectData
+): StateAggregationMap {
+  return projects.reduce((acc: StateAggregationMap, project) => {
     const state = project.State;
+    if (!state) return acc;
+
     if (!acc[state]) {
-      acc[state] = { count: 0, totalValue: 0, projects: [] };
+      acc[state] = {
+        count: 0,
+        totalValue: 0,
+        projects: []
+      };
     }
     acc[state].count += 1;
-    acc[state].totalValue += Number(project[valueField]) || 0;
+    // Safe access using type assertion
+    const value = project[valueField];
+    acc[state].totalValue += typeof value === 'number' ? value : Number(value) || 0;
     acc[state].projects.push(project);
     return acc;
-  }, {} as Record<string, { count: number; totalValue: number; projects: ProjectData[] }>);
+  }, {} as StateAggregationMap);
 }
 
 export function getDeveloperAnalysis(data: ProjectData[]) {
