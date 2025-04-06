@@ -202,7 +202,13 @@ export default function MapChart({ data }: MapChartProps) {
           width: '100% !important',
           height: '100% !important',
           background: '#1a2235 !important',
-          zIndex: 1
+          zIndex: 1  // Adjusted z-index
+        },
+        '& .leaflet-control-container': {
+          zIndex: 2
+        },
+        '& .leaflet-popup': {
+          zIndex: 3
         }
       }}
     >
@@ -212,7 +218,8 @@ export default function MapChart({ data }: MapChartProps) {
           width: '100%', 
           height: '100%',
           overflow: 'hidden',
-          borderRadius: '4px'
+          borderRadius: '4px',
+          position: 'relative'
         }} 
       />
       {isLoading && (
@@ -222,7 +229,7 @@ export default function MapChart({ data }: MapChartProps) {
             top: '50%', 
             left: '50%', 
             transform: 'translate(-50%, -50%)',
-            zIndex: 2
+            zIndex: 4
           }}
         >
           <CircularProgress />
