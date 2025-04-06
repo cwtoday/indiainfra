@@ -47,38 +47,37 @@ export default function MapChart({ data }: MapChartProps) {
       document.head.appendChild(link);
     }
 
-    let mapInstance: LeafletMapInstance = null;
-    let cleanupFn: LeafletCleanupFn | null = null;
+    let mapInstance: any = null;
+    let cleanupFn: (() => void) | null = null;
 
     // Import Leaflet and create map
     import('leaflet').then((L) => {
       if (!mapRef.current) return;
       
       try {
-        // Define bounds for India
+        // Define bounds for India with some padding
         const indiaBounds = L.latLngBounds(
-          L.latLng(8.0883, 68.7786),  // Southwest corner
-          L.latLng(35.6745, 97.3956)  // Northeast corner
+          L.latLng(6.5546, 66.7665),  // Southwest corner with more padding
+          L.latLng(37.0902, 99.4024)  // Northeast corner with more padding
         );
         
-        // Create map with pan and zoom bounds
+        // Create map with adjusted settings
         mapInstance = L.map(mapRef.current, {
           center: [23.5, 80.5], // Center of India
           zoom: 5,
-          minZoom: 4,          // Limit how far user can zoom out
-          maxZoom: 8,          // Limit how far user can zoom in
-          maxBounds: indiaBounds.pad(0.1), // Add some padding to the bounds
-          maxBoundsViscosity: 1.0,  // How "hard" the bounds are (1.0 = can't go outside)
+          minZoom: 4,          // Allow slightly more zoom out
+          maxZoom: 8,          // Limit zoom in
+          maxBounds: indiaBounds,
+          maxBoundsViscosity: 0.8,  // Make bounds slightly less strict (0.8 instead of 1.0)
           zoomControl: true,
-          scrollWheelZoom: true,    // Enable scroll wheel zoom
-          dragging: true,           // Enable panning/dragging
+          scrollWheelZoom: true,
+          dragging: true,
         });
         
-        // Add tile layer
+        // Add tile layer with extended bounds
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
           maxZoom: 19,
-          bounds: indiaBounds,  // Restrict tiles to India bounds
         }).addTo(mapInstance);
         
         // State coordinates
@@ -161,7 +160,13 @@ export default function MapChart({ data }: MapChartProps) {
         
         // Set up resize handler
         const handleResize = () => {
-          if (mapInstance) mapInstance.invalidateSize();
+          if (mapInstance) {
+            mapInstance.invalidateSize();
+            // Ensure map stays within India bounds after resize
+            if (!indiaBounds.contains(mapInstance.getCenter())) {
+              mapInstance.setView([23.5, 80.5], 5);
+            }
+          }
         };
         
         window.addEventListener('resize', handleResize);
@@ -193,14 +198,19 @@ export default function MapChart({ data }: MapChartProps) {
         height: '340px',
         borderRadius: '4px',
         background: '#1a2235',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        '& .leaflet-container': {
+          width: '100% !important',
+          height: '100% !important',
+          background: '#1a2235 !important'
+        }
       }}
     >
       <div 
         ref={mapRef} 
         style={{ 
           width: '100%', 
-          height: '100%'
+          height: '100%',
         }} 
       />
       {isLoading && (
