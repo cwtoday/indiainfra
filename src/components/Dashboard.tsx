@@ -11,6 +11,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  useTheme,
+  useMediaQuery
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useState, useEffect, useRef } from 'react';
@@ -172,6 +174,10 @@ export default function Dashboard() {
     setActiveTab(newValue);
   };
 
+  const formatInvestment = (value: number) => {
+    return `$${Math.round(value).toLocaleString()}M`;
+  };
+
   return (
     <Layout>
       <Box mb={4}>
@@ -221,17 +227,87 @@ export default function Dashboard() {
             </Paper>
           </Grid>
           
-          <Grid item xs={12} md={3}>
-            <Paper elevation={2} sx={{ p: 3, textAlign: 'center', borderRadius: 2 }}>
-              <Typography variant="h6" color="text.secondary" gutterBottom>Total Investment</Typography>
-              <Typography variant="h3" fontWeight="bold">${totalValue.toLocaleString()}</Typography>
+          <Grid item xs={12} md={6}>
+            <Paper 
+              elevation={2} 
+              sx={{ 
+                p: 3, 
+                height: '100%',
+                background: 'linear-gradient(135deg, rgba(26,34,53,1) 0%, rgba(28,38,60,1) 100%)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              <Typography 
+                variant="h6" 
+                color="text.secondary" 
+                gutterBottom
+                sx={{ 
+                  fontSize: '1.1rem',
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase'
+                }}
+              >
+                Total Investment (Millions USD)
+              </Typography>
+              <Typography 
+                variant="h2" 
+                fontWeight="bold"
+                sx={{ 
+                  fontSize: { xs: '2rem', md: '3rem' },
+                  background: 'linear-gradient(45deg, #4FC3F7, #81C784)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}
+              >
+                {formatInvestment(totalValue)}
+              </Typography>
             </Paper>
           </Grid>
           
           <Grid item xs={12} md={3}>
-            <Paper elevation={2} sx={{ p: 3, textAlign: 'center', borderRadius: 2 }}>
-              <Typography variant="h6" color="text.secondary" gutterBottom>Large Projects ({'>'}$500M)</Typography>
-              <Typography variant="h3" fontWeight="bold">{largeProjects}</Typography>
+            <Paper 
+              elevation={2} 
+              sx={{ 
+                p: 3, 
+                height: '100%',
+                background: 'linear-gradient(135deg, rgba(26,34,53,1) 0%, rgba(28,38,60,1) 100%)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              <Typography 
+                variant="h6" 
+                color="text.secondary" 
+                gutterBottom
+                sx={{ 
+                  fontSize: '1.1rem',
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase'
+                }}
+              >
+                Large Projects (>$500M)
+              </Typography>
+              <Typography 
+                variant="h2" 
+                fontWeight="bold"
+                sx={{ 
+                  fontSize: { xs: '2rem', md: '3rem' },
+                  background: 'linear-gradient(45deg, #4FC3F7, #81C784)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}
+              >
+                {largeProjects}
+              </Typography>
             </Paper>
           </Grid>
           
