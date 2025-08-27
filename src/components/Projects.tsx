@@ -11,7 +11,6 @@ import {
     TableRow,
     TablePagination,
     TextField,
-    MenuItem,
     Grid,
     CircularProgress,
     Tabs,
@@ -159,6 +158,25 @@ import {
         : "Search by project title, sector, state, or status...";
     };
   
+    const selectStyle: React.CSSProperties = {
+      width: '100%',
+      padding: '16.5px 14px',
+      fontSize: 16,
+      border: '1px solid rgba(255, 255, 255, 0.23)',
+      borderRadius: 8,
+      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      color: 'white',
+      outline: 'none'
+    };
+  
+    const labelStyle: React.CSSProperties = {
+      display: 'block',
+      marginBottom: 8,
+      fontSize: 14,
+      color: 'rgba(255, 255, 255, 0.7)',
+      fontWeight: 500
+    };
+  
     return (
       <Layout>
         <Box mb={4}>
@@ -195,33 +213,31 @@ import {
             </Grid>
             
             <Grid item xs={12} md={3}>
-              <TextField
-                select
-                fullWidth
-                label="State"
+              <label style={labelStyle}>State</label>
+              <select
                 value={filterState}
                 onChange={(e) => setFilterState(e.target.value)}
+                style={selectStyle}
               >
-                <MenuItem value="">All States</MenuItem>
+                <option value="">All States</option>
                 {states.map(state => (
-                  <MenuItem key={state} value={state}>{state}</MenuItem>
+                  <option key={state} value={state}>{state}</option>
                 ))}
-              </TextField>
+              </select>
             </Grid>
             
             <Grid item xs={12} md={3}>
-              <TextField
-                select
-                fullWidth
-                label="Status"
+              <label style={labelStyle}>Status</label>
+              <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
+                style={selectStyle}
               >
-                <MenuItem value="">All Statuses</MenuItem>
+                <option value="">All Statuses</option>
                 {statuses.map(status => (
-                  <MenuItem key={status} value={status}>{status}</MenuItem>
+                  <option key={status} value={status}>{status}</option>
                 ))}
-              </TextField>
+              </select>
             </Grid>
             
             <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -250,7 +266,7 @@ import {
               </TableBody>
             </Table>
             <TablePagination
-              rowsPerPageOptions={[10, 25, 50]}
+              rowsPerPageOptions={[]}
               component="div"
               count={filteredData.length}
               rowsPerPage={rowsPerPage}
