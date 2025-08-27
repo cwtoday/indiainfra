@@ -294,7 +294,7 @@ export default function Dashboard() {
                   textTransform: 'uppercase'
                 }}
               >
-                Large Projects (>$500M)
+                Large Projects (&gt;$500M)
               </Typography>
               <Typography 
                 variant="h2" 
