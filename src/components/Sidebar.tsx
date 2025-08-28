@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Box, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 export default function Sidebar() {
@@ -25,8 +25,35 @@ export default function Sidebar() {
         zIndex: 1200,
       }}
     >
-      <Box sx={{ p: 2, borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
-        <img src="/logo.png" alt="Logo" style={{ width: 180 }} />
+      <Box sx={{ 
+        p: 3, 
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+        textAlign: 'center'
+      }}>
+        <Typography 
+          variant="h5" 
+          sx={{ 
+            fontWeight: 700,
+            background: 'linear-gradient(45deg, #6c5dd3, #7FBA7A)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            letterSpacing: '0.5px'
+          }}
+        >
+          India CapitALL
+        </Typography>
+        <Typography 
+          variant="caption" 
+          sx={{ 
+            color: 'rgba(255, 255, 255, 0.6)',
+            fontSize: '0.75rem',
+            letterSpacing: '1px',
+            textTransform: 'uppercase'
+          }}
+        >
+          Infrastructure Capital
+        </Typography>
       </Box>
       <List>
         {menuItems.map((item) => (

@@ -179,6 +179,33 @@ import {
   
     return (
       <Layout>
+        <style jsx>{`
+          select {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.23) !important;
+            border-radius: 8px !important;
+            padding: 16.5px 14px !important;
+            font-size: 16px !important;
+            outline: none !important;
+          }
+          
+          select option {
+            background-color: #242645 !important;
+            color: white !important;
+            padding: 8px 12px !important;
+          }
+          
+          select option:hover {
+            background-color: #6c5dd3 !important;
+          }
+          
+          select:focus {
+            border-color: #6c5dd3 !important;
+            box-shadow: 0 0 0 2px rgba(108, 93, 211, 0.2) !important;
+          }
+        `}</style>
+        
         <Box mb={4}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
             <Tabs 
